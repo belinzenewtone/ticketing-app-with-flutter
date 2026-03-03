@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../core/app_theme.dart';
 
 class StatCard extends StatelessWidget {
   final String label;
   final int value;
   final Color color;
   final IconData icon;
+  final String? subtitle;
 
   const StatCard({
     super.key,
@@ -12,48 +14,68 @@ class StatCard extends StatelessWidget {
     required this.value,
     required this.color,
     required this.icon,
+    this.subtitle,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+        boxShadow: AppShadows.card,
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
                   label,
                   style: const TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF64748B),
-                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    color: AppColors.textMuted,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.3,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(icon, size: 16, color: color),
+              ),
+              Container(
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.12),
+                  borderRadius: BorderRadius.circular(AppRadius.md),
                 ),
-              ],
+                child: Icon(icon, size: 17, color: color),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            value.toString(),
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+              color: color,
+              height: 1,
+              letterSpacing: -0.5,
             ),
-            const SizedBox(height: 8),
+          ),
+          if (subtitle != null) ...[
+            const SizedBox(height: 4),
             Text(
-              value.toString(),
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-                color: color,
+              subtitle!,
+              style: const TextStyle(
+                fontSize: 11,
+                color: AppColors.textMuted,
               ),
             ),
           ],
-        ),
+        ],
       ),
     );
   }
