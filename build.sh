@@ -5,4 +5,4 @@ tar xf flutter.tar.xz
 export PATH="$PATH:$(pwd)/flutter/bin"
 flutter config --no-analytics
 flutter pub get
-flutter build web --release --web-renderer canvaskit
+flutter build web --release
